@@ -1,0 +1,35 @@
+.page {
+	min-height: 100vh;
+	width: 100%;
+	margin: 0 auto;
+	font-family: 'Inter', Arial, sans-serif;
+	color: #FFFFFF;
+	background-color: #000000;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+}
+
+
+/*1280px 1024px 768px 320px*/
+
+
+/* @media screen and (min-width: 1024px) and (max-width: 1279px) {}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {} */
+
+
+/*сбросить стили кнопки
+border: none; 
+background-color: transparent; 
+margin: 0; 
+padding: 0; 
+
+background-repeat: no-repeat; 
+background-size: contain; 
+
+*/

@@ -1,0 +1,25 @@
+.burger__line {
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    border: 2px solid #FFFFFF;
+    background-color: #ffffff;
+    width: 24px;
+    margin-bottom: 3px;
+    transition: ease-in .2s;
+}
+
+.burger__line:nth-child(1) {
+    top: 0;
+    transform-origin: left center;
+}
+
+.burger__line:nth-child(2) {
+    top: 10px;
+    transform-origin: left center;
+}
+
+.burger__line:nth-child(3) {
+    top: 20px;
+    transform-origin: left center;
+}

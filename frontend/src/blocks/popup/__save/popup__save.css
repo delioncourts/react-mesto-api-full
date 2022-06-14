@@ -1,0 +1,26 @@
+.popup__save {
+	font-family: 'Inter', Arial, sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 22px;
+	text-align: center;
+	color: #FFFFFF;
+	max-height: 50px;
+	background-color: #000000;
+	margin: 0 auto;
+	margin-top: 56px;
+	margin-bottom: 29px;
+	width: 100%;
+	min-height: 50px;
+	border: none;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+	.popup__save {
+		font-size: 14px;
+		line-height: 17px;
+		margin-bottom: 25px;
+		min-height: 46px;
+	}
+}

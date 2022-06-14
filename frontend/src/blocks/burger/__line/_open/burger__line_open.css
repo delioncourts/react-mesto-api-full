@@ -1,0 +1,14 @@
+.burger__line_open:nth-child(1) {
+    transform: rotate(45deg);
+    top: 1px;
+}
+
+.burger__line_open:nth-child(2) {
+    width: 0%;
+    opacity: 0;
+}
+
+.burger__line_open:nth-child(3) {
+    transform: rotate(-45deg);
+    top: 18px;
+}

@@ -1,0 +1,9 @@
+.popup__input_type_auth {
+    color: #ccc;
+    border-bottom: 2px solid #ccc;
+    background-color: transparent;
+}
+
+.popup__input_type_auth:last-of-type {
+    margin-bottom: 214px;
+}

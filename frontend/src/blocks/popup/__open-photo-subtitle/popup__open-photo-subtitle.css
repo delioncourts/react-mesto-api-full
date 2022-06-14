@@ -1,0 +1,10 @@
+.popup__open-photo-subtitle {
+    font-family: 'Inter', Arial, sans-serif;
+    margin: 0;
+    margin-top: 10px;
+    color: #FFFFFF;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+}

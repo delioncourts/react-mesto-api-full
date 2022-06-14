@@ -1,0 +1,9 @@
+.popup__text {
+    font-family: 'Inter', Arial, sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+	color: #fff;
+	margin: 0;
+    text-align: center;
+}
