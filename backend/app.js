@@ -1,10 +1,12 @@
+require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
-const { requestLogger, errorLogger } = require('./middlewares/logger'); 
+const bodyParser = require('body-parser');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
-const bodyParser = require('body-parser');
 const { validateLogin, validateUser } = require('./utils/validation');
 const { login, createUsers } = require('./controllers/users');
 const auth = require('./middlewares/auth');
@@ -22,13 +24,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger); // подключаем логгер запросов
+app.use(cors());
 
-//Краш-тест сервера
+// Краш-тест сервера
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
-}); 
+});
 
 app.post('/signin', validateLogin, login);
 app.post('/signup', validateUser, createUsers);
