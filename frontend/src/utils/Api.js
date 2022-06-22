@@ -1,7 +1,13 @@
 class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl }) {
     this._baseUrl = baseUrl;
-    this._headers = headers;
+  }
+
+  get _headers() {
+    return {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    }
   }
 
   _checkServerResponse(res) {
@@ -14,6 +20,7 @@ class Api {
 
   getProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
+      method: 'GET',
       headers: this._headers,
     })
       .then(this._checkServerResponse);
@@ -21,6 +28,7 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
+      method: "GET",
       headers: this._headers,
     })
       .then(this._checkServerResponse);
@@ -79,11 +87,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-37",
-  headers: {
-    authorization: "a0b3e2e0-8bf7-47b3-9f51-e543921e1ae3",
-    "Content-Type": "application/json",
-  },
+  baseUrl: "https://api.delioncourts.nomoredomains.xyz",
 });
 
 export default api;
