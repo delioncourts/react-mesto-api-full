@@ -1,3 +1,6 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+
 import { useEffect, useState } from 'react';
 import { useNavigate, Route, Routes, Navigate } from 'react-router-dom';
 import Footer from './Footer';
@@ -38,13 +41,16 @@ function App() {
 
     useEffect(() => {
         handleTokenCheck();
-        Promise.all([api.getInitialCards(), api.getProfile()])
-            .then(([cards, userInfo]) => {
-                setCurrentUser(userInfo);
-                setCards(cards);
-            })
-            .catch((err) => console.log(err))
-    }, [])
+        if (loggedIn) {
+            navigate('/');
+            Promise.all([api.getInitialCards(), api.getProfile()])
+                .then(([cards, userInfo]) => {
+                    setCurrentUser(userInfo);
+                    setCards(cards.reverse());
+                })
+                .catch((err) => console.log(err))
+        }
+    }, [loggedIn])
 
     function handleCardClick(card) {
         setSelectedCard(card);
@@ -69,11 +75,12 @@ function App() {
         setIsAddPlacePopupOpen(false);
         setIsImageOpen(false);
         setIsInfoTooltipOpen(false);
+        setSelectedCard({});
     }
 
     function handleCardLike(card) {
         // Проверяем, есть ли уже лайк на этой карточке
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
+        const isLiked = card.likes.some(i => i === currentUser._id);
 
         // Отправляем запрос в API и получаем обновлённые данные карточки
         api.changeLikeCardStatus(card._id, !isLiked)
@@ -84,21 +91,15 @@ function App() {
     }
 
     function handleCardDelete(card) {
-        // Проверяем принадлежность карточки
-        const isOwn = card.owner._id === currentUser._id;
-
-        //Создаём копию массива, исключая удаленную карточку
-        if (isOwn) {
-            api.deleteCard(card._id)
-                .then(() => setCards(state => state.filter(c => c._id !== card._id)))
-                .catch((error) => console.log(error));
-        }
+        api.deleteCard(card._id)
+            .then(() => { setCards((state) => state.filter((c) => c._id !== card._id)) })
+            .catch((error) => console.log(error));
     }
 
     // Обработчик обновления данных профиля
-    function handleUpdateUser({ name, about }) {
+    function handleUpdateUser(user) {
         api
-            .editProfile(name, about)
+            .editProfile(user.name, user.about)
             .then((res) => {
                 setCurrentUser(res)
                 closeAllPopups();
@@ -107,9 +108,9 @@ function App() {
     }
 
     // Обработчик обновления аватара
-    function handleUpdateAvatar({ avatar }) {
+    function handleUpdateAvatar(user) {
         api
-            .changeAvatar(avatar)
+            .changeAvatar(user.avatar)
             .then((res) => {
                 setCurrentUser(res)
                 closeAllPopups();
@@ -118,9 +119,9 @@ function App() {
     }
 
     // Обработчик добавления карточки
-    function handleAddPlaceSubmit({ name, link }) {
+    function handleAddPlaceSubmit(user) {
         api
-            .addCard(name, link)
+            .addCard(user.name, user.link)
             .then((newCard) => {
                 setCards([newCard, ...cards])
                 closeAllPopups();
@@ -174,7 +175,6 @@ function App() {
 
     function handleSignOut() {
         setLoggedIn(false);
-        setUserInfo("");
         localStorage.removeItem('jwt');
         navigate('/sign-in');
     }
