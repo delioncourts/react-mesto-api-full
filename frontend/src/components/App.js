@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 
 import { useEffect, useState } from 'react';
 import { useNavigate, Route, Routes, Navigate } from 'react-router-dom';

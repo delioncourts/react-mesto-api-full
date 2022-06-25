@@ -1,6 +1,6 @@
 class Api {
   constructor({ baseUrl }) {
-    this._baseUrl = baseUrl;
+    this._url = baseUrl;
   }
 
   get _headers() {
@@ -19,23 +19,21 @@ class Api {
   }
 
   getProfile() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: 'GET',
-      headers: this._headers,
+    return fetch(`${this._url}/users/me`, {
+      headers: this._headers
     })
       .then(this._checkServerResponse);
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      method: "GET",
-      headers: this._headers,
+    return fetch(`${this._url}/cards`, {
+      headers: this._headers
     })
       .then(this._checkServerResponse);
   }
 
   editProfile(name, about) {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
@@ -47,7 +45,7 @@ class Api {
   }
 
   addCard(name, link) {
-    return fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._url}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
@@ -59,7 +57,7 @@ class Api {
   }
 
   deleteCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`, {
+    return fetch(`${this._url}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers
     })
@@ -67,7 +65,7 @@ class Api {
   }
 
   changeLikeCardStatus(id, isLiked) {
-    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+    return fetch(`${this._url}/cards/${id}/likes`, {
       method: isLiked ? 'PUT' : 'DELETE',
       headers: this._headers
     })
@@ -75,7 +73,7 @@ class Api {
   }
 
   changeAvatar(avatar) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
+    return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
