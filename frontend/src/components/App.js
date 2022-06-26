@@ -40,12 +40,15 @@ function App() {
 
     useEffect(() => {
         handleTokenCheck();
+    }, []);
+
+    useEffect(() => {
         if (loggedIn) {
             navigate('/');
             Promise.all([api.getInitialCards(), api.getProfile()])
                 .then(([cards, userInfo]) => {
                     setCurrentUser(userInfo);
-                    setCards(cards.reverse());
+                    setCards(cards);
                 })
                 .catch((err) => console.log(err))
         }
@@ -79,19 +82,19 @@ function App() {
 
     function handleCardLike(card) {
         // Проверяем, есть ли уже лайк на этой карточке
-        const isLiked = card.likes.some(i => i === currentUser._id);
+        const isLiked = card.likes.some((i) => i === currentUser._id);
 
         // Отправляем запрос в API и получаем обновлённые данные карточки
-        api.changeLikeCardStatus(card._id, !isLiked)
+        api.changeLikeCardStatus(card._id, isLiked)
             .then((newCard) => {
-                setCards((state) => state.map((c) => c._id === card._id ? newCard : c))
+                setCards(state => state.map(c => c._id === card._id ? newCard : c))
             })
             .catch((error) => console.log(error));
     }
 
     function handleCardDelete(card) {
         api.deleteCard(card._id)
-            .then(() => { setCards((state) => state.filter((c) => c._id !== card._id)) })
+            .then(() => { setCards(state => state.filter(c => c._id !== card._id)) })
             .catch((error) => console.log(error));
     }
 

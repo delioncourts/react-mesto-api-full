@@ -23,13 +23,10 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike
 
             <section className="cards">
                 <ul className="cards__grid">
-                    {cards.map(card => (
+                    {cards.map((item) => (
                         <Card
-                            card={card}
-                            name={card.name}
-                            link={card.link}
-                            likes={card.likes}
-                            key={card._id}
+                            card={item}
+                            key={item._id}
                             onCardClick={onCardClick}
                             onCardLike={onCardLike}
                             onCardDelete={onCardDelete} />))}
