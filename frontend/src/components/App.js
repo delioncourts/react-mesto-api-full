@@ -55,12 +55,12 @@ function App() {
             Promise.all([api.getInitialCards(), api.getProfile()])
                 .then(([cardInfo, userInfo]) => {
                     setCurrentUser(userInfo);
-                    setCards(cardInfo);
-                    cardInfo.reverse();
+                    setCards(cardInfo.reverse());
                     console.log(cardInfo);
                     console.log(userInfo);
                 })
                 .catch((err) => console.log(err))
+                return
         }
     }, [loggedIn])
 
@@ -175,7 +175,7 @@ function App() {
                     localStorage.setItem('jwt', result.token);
                     setLoggedIn(true);
                     navigate('/');
-                    //setUserInfo(email)
+                    setUserInfo(email)
                 }
             })
             .catch(() => {
