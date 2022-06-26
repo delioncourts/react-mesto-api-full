@@ -25,7 +25,7 @@ const login = (req, res, next) => {
 
 const getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.status(STATUS_OK).send({ data: users }))
+    .then((users) => res.status(STATUS_OK).send(users))
     .catch(next);
 };
 
@@ -35,7 +35,7 @@ const getUserById = (req, res, next) => {
       if (!users) {
         throw new NotFoundError('Пользователь не найден');
       }
-      return res.status(STATUS_OK).send({ data: users });
+      return res.status(STATUS_OK).send(users);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -48,7 +48,7 @@ const getUserById = (req, res, next) => {
 const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((users) => {
-      res.send({ data: users });
+      res.send(users);
     })
     .catch((err) => next(err));
 };
@@ -62,14 +62,7 @@ const createUsers = (req, res, next) => {
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
     }))
-    .then((user) => res.status(STATUS_CREATED).send({
-      data: {
-        name: user.name,
-        about: user.about,
-        avatar: user.avatar,
-        email: user.email,
-      },
-    }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.code === 11000) {
         return next(new ConflictError('Данный email уже зарегистрирован'));
@@ -83,17 +76,12 @@ const createUsers = (req, res, next) => {
 
 const updateUser = (req, res, next) => {
   const { name, about } = req.body;
-  User.findByIdAndUpdate(
+  return User.findByIdAndUpdate(
     req.user._id,
     { name, about },
-    { new: true, runValidators: true, upsert: false },
+    { new: true, runValidators: true },
   )
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Пользователь не найден');
-      }
-      return res.send({ data: user });
-    })
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(new BadRequestError('Некорректные данные пользователя'));
@@ -104,17 +92,12 @@ const updateUser = (req, res, next) => {
 
 const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
-  User.findByIdAndUpdate(
+  return User.findByIdAndUpdate(
     req.user._id,
     { avatar },
-    { new: true, runValidators: true, upsert: false },
+    { new: true, runValidators: true },
   )
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Пользователь не найден');
-      }
-      return res.send({ data: user });
-    })
+    .then((user) =>  res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(new BadRequestError('Некорректные данные пользователя'));
