@@ -28,7 +28,7 @@ function App() {
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState({});
-    const [isImageOpen, setIsImageOpen] = useState(false);
+    //const [isImageOpen, setIsImageOpen] = useState(false);
     const [currentUser, setCurrentUser] = useState({});
     const [cards, setCards] = useState([]);
 
@@ -45,7 +45,7 @@ function App() {
     useEffect(() => {
         if (loggedIn) {
             navigate('/');
-            Promise.all([api.getInitialCards(), api.getProfile()])
+            Promise.all([api.getCards(), api.getProfile()])
                 .then(([cardInfo, userInfo]) => {
                     setCurrentUser(userInfo);
                     setCards(cardInfo.reverse());
@@ -225,7 +225,7 @@ function App() {
 
                             <ImagePopup name="photo"
                                 onClose={closeAllPopups}
-                                isOpen={isImageOpen}
+                                //isOpen={isImageOpen}
                                 card={selectedCard} />
                         </>}></Route>
                     </Route>

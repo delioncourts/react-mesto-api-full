@@ -25,7 +25,7 @@ class Api {
       .then(this._checkServerResponse);
   }
 
-  getInitialCards() {
+  getCards() {
     return fetch(`${this._url}/cards`, {
       headers: this._headers
     })
