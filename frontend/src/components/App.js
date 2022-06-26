@@ -43,18 +43,24 @@ function App() {
     }, []);
 
     useEffect(() => {
+        if (!loggedIn) {
+            navigate('/sign-in');
+            return;
+        }
+    }, [loggedIn]);
+
+    useEffect(() => {
         if (loggedIn) {
-            navigate('/');
+            //navigate('/');
             Promise.all([api.getInitialCards(), api.getProfile()])
                 .then(([cardInfo, userInfo]) => {
-                    cardInfo.reverse();
                     setCurrentUser(userInfo);
                     setCards(cardInfo);
+                    cardInfo.reverse();
                     console.log(cardInfo);
                     console.log(userInfo);
                 })
                 .catch((err) => console.log(err))
-                return
         }
     }, [loggedIn])
 
@@ -143,7 +149,6 @@ function App() {
                     if (res) {
                         setUserInfo({ email: res.data.email })
                         setLoggedIn(true);
-                        navigate('/');
                     }
                 })
                 .catch((err) => console.log(err));
@@ -170,7 +175,7 @@ function App() {
                     localStorage.setItem('jwt', result.token);
                     setLoggedIn(true);
                     navigate('/');
-                    setUserInfo(email)
+                    //setUserInfo(email)
                 }
             })
             .catch(() => {
