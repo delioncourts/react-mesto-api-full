@@ -46,11 +46,15 @@ function App() {
         if (loggedIn) {
             navigate('/');
             Promise.all([api.getInitialCards(), api.getProfile()])
-                .then(([cards, userInfo]) => {
+                .then(([cardInfo, userInfo]) => {
+                    cardInfo.reverse();
                     setCurrentUser(userInfo);
-                    setCards(cards);
+                    setCards(cardInfo);
+                    console.log(cardInfo);
+                    console.log(userInfo);
                 })
                 .catch((err) => console.log(err))
+                return
         }
     }, [loggedIn])
 
