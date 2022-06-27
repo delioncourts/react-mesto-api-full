@@ -137,7 +137,7 @@ function App() {
             getContent(jwt)
                 .then((res) => {
                     if (res) {
-                        setUserInfo({ email: res.data.email })
+                        setUserInfo({ email: res.email })
                         setLoggedIn(true);
                     }
                 })
