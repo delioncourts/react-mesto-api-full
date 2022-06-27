@@ -85,7 +85,7 @@ function App() {
         const isLiked = card.likes.some(i => i === currentUser._id);
 
         // Отправляем запрос в API и получаем обновлённые данные карточки
-        api.changeLikeCardStatus(card._id, isLiked)
+        api.changeLikeCardStatus(card._id, !isLiked)
             .then(newCard => 
                 setCards(state => state.map(c => c._id === card._id ? newCard : c)))
             .catch((error) => console.log(error));
@@ -163,6 +163,7 @@ function App() {
                 if (result) {
                     localStorage.setItem('jwt', result.token);
                     setLoggedIn(true);
+                    setUserInfo({ email: res.email });
                     navigate('/');
                 }
             })
