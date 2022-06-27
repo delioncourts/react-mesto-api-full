@@ -163,7 +163,7 @@ function App() {
                 if (result) {
                     localStorage.setItem('jwt', result.token);
                     setLoggedIn(true);
-                    setUserInfo({ email: res.email });
+                    setUserInfo({ email: result.email });
                     navigate('/');
                 }
             })
