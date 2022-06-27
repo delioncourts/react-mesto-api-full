@@ -85,10 +85,9 @@ function App() {
         const isLiked = card.likes.some(i => i === currentUser._id);
 
         // Отправляем запрос в API и получаем обновлённые данные карточки
-        api.changeLikeCardStatus(card._id, !isLiked)
-            .then((newCard) => {
-                setCards((state) => state.map((c) => c._id === card._id ? newCard : c))
-            })
+        api.changeLikeCardStatus(card._id, isLiked)
+            .then(newCard => 
+                setCards(state => state.map(c => c._id === card._id ? newCard : c)))
             .catch((error) => console.log(error));
     }
 
@@ -99,9 +98,9 @@ function App() {
     }
 
     // Обработчик обновления данных профиля
-    function handleUpdateUser(user) {
+    function handleUpdateUser({ name, about}) {
         api
-            .editProfile(user.name, user.about)
+            .editProfile(name, about)
             .then((res) => {
                 setCurrentUser(res)
                 closeAllPopups();
@@ -110,9 +109,9 @@ function App() {
     }
 
     // Обработчик обновления аватара
-    function handleUpdateAvatar(user) {
+    function handleUpdateAvatar({avatar}) {
         api
-            .changeAvatar(user.avatar)
+            .changeAvatar(avatar)
             .then((res) => {
                 setCurrentUser(res)
                 closeAllPopups();
@@ -121,10 +120,10 @@ function App() {
     }
 
     // Обработчик добавления карточки
-    function handleAddPlaceSubmit(user) {
+    function handleAddPlaceSubmit({name, link}) {
         api
-            .addCard(user.name, user.link)
-            .then((newCard) => {
+            .addCard(name, link)
+            .then(newCard => {
                 setCards([newCard, ...cards])
                 closeAllPopups();
             })
@@ -165,7 +164,6 @@ function App() {
                     localStorage.setItem('jwt', result.token);
                     setLoggedIn(true);
                     navigate('/');
-                    setUserInfo(email)
                 }
             })
             .catch(() => {

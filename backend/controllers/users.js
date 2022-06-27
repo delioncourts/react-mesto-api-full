@@ -9,8 +9,6 @@ const ConflictError = require('../errors/ConflictError');
 const NotFoundError = require('../errors/NotFoundError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 
-const { STATUS_OK, STATUS_CREATED } = require('../utils/const');
-
 const login = (req, res, next) => {
   const { email, password } = req.body;
 
@@ -25,17 +23,17 @@ const login = (req, res, next) => {
 
 const getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.status(STATUS_OK).send(users))
-    .catch(next);
+    .then((users) => res.send(users))
+    .catch((err) => next(err));
 };
 
 const getUserById = (req, res, next) => {
   User.findById(req.params.userId)
-    .then((users) => {
-      if (!users) {
+    .then((user) => {
+      if (!user) {
         throw new NotFoundError('Пользователь не найден');
       }
-      return res.status(STATUS_OK).send(users);
+      return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -47,8 +45,11 @@ const getUserById = (req, res, next) => {
 
 const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
-    .then((users) => {
-      res.send(users);
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Пользователь не найден');
+      }
+      return res.send(user);
     })
     .catch((err) => next(err));
 };
@@ -97,7 +98,7 @@ const updateAvatar = (req, res, next) => {
     { avatar },
     { new: true, runValidators: true },
   )
-    .then((user) =>  res.send(user))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(new BadRequestError('Некорректные данные пользователя'));
