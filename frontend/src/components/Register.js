@@ -22,12 +22,12 @@ function Register({ onRegister }) {
   return (
     <div className="register">
       <Auth title={'Регистрация'} name={'register'} onSubmit={handleSubmit}>
-        <input className="popup__input popup__input_type_auth" type="email" placeholder="Email" id="email"
+        <input className="popup__input popup__input_type_auth" type="email" placeholder="Email" id="new_email"
           name="email" value={email || ''} onChange={handleEmail}
           minLength="2" maxLength="40" required />
         <span className="popup__error email-error"></span>
 
-        <input className="popup__input popup__input_type_auth" type="password" placeholder="Пароль" id="password"
+        <input className="popup__input popup__input_type_auth" type="password" placeholder="Пароль" id="new_password"
           name="password" value={password || ''} onChange={handlePassword}
           minLength="6" maxLength="200" required />
         <span className="popup__error password-error"></span>
