@@ -5,10 +5,10 @@ class Api {
 
   get _headers() {
     return {
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
-      'Content-Type': 'application/json'
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json'
     }
-  }
+}
 
   _checkServerResponse(res) {
     if (res.ok) {
