@@ -2,15 +2,13 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from "../images/logo.svg";
 
-console.log('Hello')
-
 function Header({ userEmail, onSignOut }) {
   const location = useLocation();
   let {email} = userEmail || {};
 
   return (
     <header className="header">
-      <img className="header__logo" src={logo} alt="логотип Место" />
+      <img className="header__logo" src={logo} alt="логотип проекта Место" />
 
       <div className={`header__info ${location.pathname === '/' && "header__info_inactive"}`}>
         {location.pathname === '/' ?
