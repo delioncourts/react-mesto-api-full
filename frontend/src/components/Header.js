@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from "../images/logo.svg";
 
-console.log(Hello)
+console.log('Hello')
 
 function Header({ userEmail, onSignOut }) {
   const location = useLocation();
