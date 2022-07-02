@@ -130,20 +130,6 @@ function App() {
             .catch((error) => console.log(error));
     }
 
-    function handleTokenCheck() {
-        const jwt = localStorage.getItem('jwt');
-        if (jwt) {
-            getContent(jwt)
-                .then((res) => {
-                    if (res) {
-                        setUserInfo({ email: res.email })
-                        setLoggedIn(true);
-                    }
-                })
-                .catch((err) => console.log(err));
-        }
-    }
-
     function handleRegister(email, password) {
         register(email, password)
             .then((result) => {
@@ -172,6 +158,20 @@ function App() {
             })
     }
 
+    function handleTokenCheck() {
+        const jwt = localStorage.getItem('jwt');
+        if (jwt) {
+            getContent(jwt)
+                .then((res) => {
+                    if (res) {
+                        setUserInfo({ email: res.email })
+                        setLoggedIn(true);
+                    }
+                })
+                .catch((err) => console.log(err));
+        }
+    }
+    
     function handleSignOut() {
         setLoggedIn(false);
         localStorage.removeItem('jwt');
