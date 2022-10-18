@@ -1,7 +1,42 @@
 # react-mesto-api-full
 Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями. Бэкенд расположите в директории `backend/`, а фронтенд - в `frontend/`. 
 
-IP-адрес сервера: 51.250.2.229
+Frontend: https://delioncourts.nomoredomains.xyz <br />
+Backend: https://api.delioncourts.nomoredomains.xyz <br />
+IP-адрес сервера: 62.84.125.231 <br />
 
-Frontend: http://delioncourts.nomoredomains.xyz
-Backend: https://api.delioncourts.nomoredomains.xyz
+Вы можете создать нового пользователя или воспользоваться тестовыми данными: <br />
+логин: test1@test.com <br />
+пароль: testtest <br />
+
+## Frontend
+* Создание и редактирование профиля, загрузка фотографий, лайк фотографий и отображение количества лайков, удаление собственных фотокарточек;
+* SPA на `React` v6 c использованием библиотеки `react-router-dom`;
+* Построение сетки при помощи Grid и Flexbox;
+* Используются семантические тэги; 
+* CSS классы названы по БЭМ, используется nested структура хранения файлов.
+
+## Backend
+* REST API
+* `Express.js` и Node.js;
+* `MongoDB` & `mongoose`;
+* `nodemon`;
+* `parsers`: body-parser и cookie-parser;
+* CORS
+
+### Роуты для пользователей
+* GET /users - все пользователи.
+* GET /users/:userId - данные пользователя по id.
+* GET /users/me - данные текущего пользователя.
+* PATCH /users/me - обновить данные пользователя.
+* PATCH /users/me/avatar - обновить аватар пользователя.
+
+### Роуты для карточек
+* GET /cards - получить все карточки из базы данных.
+* POST /cards - создать фотокарточку.
+* DELETE /cards/:cardId - удалить карточку по переданному id.
+
+## Запуск проекта локально
+* `npm run start` - запуск проект в режиме отладки
+* `npm run dev` - собрать проект
+* `npm run lint` - запустить линтер
